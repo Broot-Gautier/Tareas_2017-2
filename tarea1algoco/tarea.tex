@@ -1,0 +1,124 @@
+\documentclass[spanish, fleqn]{article}
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fourier}
+\usepackage{amsmath, amsfonts, amsthm, fourier}
+\usepackage[colorlinks, urlcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\newcommand{\num}{1}
+\title{Tarea 1\\
+       \large Algoritmos y Complejidad\\[3ex]
+       \emph{``Crímenes imprecisos''}}
+\author{Benjamin Gautier Ortiz 201460036-4}
+\date{2017-09-13}
+
+\begin{document}
+
+\maketitle
+
+  \begin{enumerate}
+  \item % 20172t1p1\textbf{
+    Conocemos la fórmula para las raíces de la ecuación cuadrática:
+    \begin{equation*}
+      a x^2 + b x + c
+        = 0
+    \end{equation*}
+    como:
+    \begin{equation*}
+      x
+        = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2 a}
+    \end{equation*}
+    Escriba un programa que realize correctamente y de forma precisa, dentro de lo que se puede, la solucion de la ecuaci\'on de segundo grado.
+    \section*{An\'alisis}
+    	Nos presentan un teorema sobre la solucion de ecuaciones de segundo grado, este tiene implicitamente un algoritmo: \\
+        	Sea \emph{a, b, c} numeros reales con $a \neq 0$, entonces la ecuacion
+            $a x^2 + b x + c  = 0$ se satisface por dos valores:
+            \begin{equation*}
+              x_{1} = \frac{-b + \sqrt{b^2 - 4 a c}}{2 a} \ \ \ \ \ \ \ \ \\ 
+              x_{2} = \frac{-b - \sqrt{b^2 - 4 a c}}{2 a}
+            \end{equation*}
+            Debemos tener sumo cuidado por la "cancelacion catastrofica'' ya que en analisis del numerador $-b \pm \sqrt{b^{2}-4 a c} $ si tenemos un \emph{b} demasiado grande y \emph{a, c} son demasiado pequeños, al calcular el determinante, podemos obtener dos raices que son muy proximas, esto no es preciso. Lo anterior se da por la representacion de puntos flotantes en una computadora. \\ 
+            Luego de investigar, se ha encontrado una fórmula para estos casos especiales, en donde se produce la \emph{Cancelaci\'on catastr\'ofica}:
+            \begin{equation*}
+            x_{1} = \frac{-b - sign(b)\sqrt{b^{2} - 4 a c}}{2a} \ \ \ \ \ \ \ \\
+            x_{2} = \frac{c}{a x_{1}}
+            \end{equation*}
+            El procedimiento a seguir para generar las soluciones es el siguiente:
+            \begin{enumerate}
+            \item Primero debemos obtener los valores de \emph{a, b, c}
+            	\begin{itemize}
+                \item Si $a = 0$ entonces no podemos usar la ecuacion propuesta por el teorema, ya que trata de una solucion lineal, de esta forma solo debemos calcular una solucion, que será $x = \dfrac{-c}{b}$, aqui termina la resolucion.
+                \item Si $a = 0 $ y $b = 0$, entonces nos encontramos con una ecuacion que no tiene variable dependiente, esto es sin soluciones, ya que se pueden presentar los casos: 
+                \begin{itemize}
+                \item $c = 0$ con $c \in \mathbf{R} - \{ 0 \} $, en donde no hay solucion.
+                \item $ c = 0$ donde c es igual a cero, entonces estamos con infinitas soluciones.
+                \end{itemize}
+            	\item Si $a \neq 0$ Entonces estamos en el caso de una cuadrática procedemos como sigue:
+                \begin{enumerate}
+                \item  Primero definimos el determinante caracteristico de la ecuacion:
+                	\begin{equation*}
+                		\textbf{Determinante} = b^{2} - 4 a c
+                	\end{equation*}
+                \item Luego clasificamos el determinante de acuerdo a los siguientes criterios:
+                	\begin{itemize}
+                    \item Si a y c son muy pequeños, y b es realmente grande ocuparemos la f\'ormula antes investigada. Se obtendr\'an dos raices, complejas o reales.
+                	\item Si el determinante es mayor a cero:
+                    	\begin{itemize}
+                    	\item Entonces sabemos que la ecuacion posee dos soluciones reales distintas
+                    	\end{itemize}
+                    \item Si el determinante es menor a cero:
+                    	\begin{itemize}
+                    	\item Entonces sabemos que la ecuacion posee dos soluciones complejas distintas.
+                    	\end{itemize}
+                    \item Si el determinante es igual a cero:
+                        \begin{itemize}
+                        \item Entonces sabemos que la ecuacion posee dos soluciones reales repetidas.
+                        \end{itemize}
+                    \end{itemize}
+                \end{enumerate}
+            	\end{itemize} 
+            \end{enumerate}
+            
+            
+       \newpage
+  \item % 20171t1p2
+    Use el método de la secante
+    para obtener el valor preciso
+    (seis cifras)
+    de los primeros cuatro ceros reales
+    del polinomio:
+    \begin{equation*}
+      (x - 1)^{\underline{11}} + x^6
+    \end{equation*}
+   \section*{An\'alisis}
+   			Procederemos utilizando el metodo de la secante, el cual se usa para encontrar las raices o soluciones de un polinomio. Lo provechoso de este m\'etodo es que le entregamos dos puntos iniciales y despues el mismo metodo se va retroalimentando. Lo que hace, basicamente, es ir tirando rectas secantes a la curva del polinomio en cuesti\'on.
+            \subsection*{Procedimiento}
+            \begin{itemize}
+            \item Primero debemos definir conceptos:
+            \begin{itemize}
+            \item $X_{n}$ es el valor actual de $X$
+            \item $X_{n-1}$ es el valor anterior de $X$
+            \item $X_{n+1}$ es el valor siguiente de $X$
+            \end{itemize}
+            \item Luego se define la relaci\'on de recurrencia:
+            \begin{equation*}
+            		x_{n+1} = x_{n} - \frac{x_{n} - x_{n-1}}{f(x_{n}) - f(x_{n-1})} f(x_{n})
+            \end{equation*}
+            \end{itemize}
+           
+  \end{enumerate}
+            Despu\'es de apoyarnos en algunos m\'etodos graficos, pudimos obtener rangos aproximados para las raices del polinomio. Estos nos servir\'an para entregarle a el metodo secante dos valores iniciales para que vaya buscando la solucion optima.\\
+            Los rangos encontrados son: $[0.9-1.2],[1.9-2.2],[2.7-3.2],[3.7-4.0]$ \\
+            \ \ \ \ \ \ \ Luego, la forma de proceder es entregarle a el metodo secante los dos primeros valores aproximados. Se calcula iterativamente el siguiente termino, $x_{n+1}$, si es que el error absoluto $| \frac{ x_{n+1} - x_{n}}{x_{n+1}} |$ es muy pequeño, dependiendo de la \textbf{tolerancia}, este encontrar\'a una solucion.
+            
+    Para llegar a las soluciones, le damos a la funcion \texttt{secant\_method} los valores extremos de cada rango $(4$ rangos $)$ que obtuvimos del an\'alisis. El metodo se encarga de encontrar las soluciones de forma eficiente. 
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
