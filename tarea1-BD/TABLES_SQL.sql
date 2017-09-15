@@ -48,10 +48,8 @@ CREATE TABLE Curso_Estudiante(
   idCurso int not null,
   correoEstudiante varchar(45) not null,
   fechaRegistro DATE not null,
-  PRIMARY KEY (fechaRegistro),
-  FOREIGN KEY (idCurso) REFERENCES Curso(idCurso),
-  FOREIGN KEY (correoEstudiante) REFERENCES Estudiante(correoEstudiante)
-  );
+  PRIMARY KEY (fechaRegistro,idCurso,correoEstudiante)
+);
 INSERT INTO Profesor
 VALUES ('cecilia.reyes@usm.cl', 'Cecilia', 'Reyes', 'bd2017-2'),
  ('horst@vonbrand.cl', 'Horst', 'Von Brand', 'talf'),
