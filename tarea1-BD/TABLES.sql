@@ -48,5 +48,5 @@ CREATE TABLE Curso_Estudiante(
   idCurso int NOT NULL,
   correoEstudiante varchar(45) NOT NULL,
   fechaRegistro DATE NOT NULL,
-  PRIMARY KEY (fechaRegistro,idCurso,correoEstudiante)
+  PRIMARY KEY (fechaRegistro,idCurso,correoEstudiante) #falta foreign key
 );
