@@ -9,3 +9,10 @@ from Estudiante
 INNER JOIN Curso_Estudiante on (Estudiante.correoEstudiante = Curso_Estudiante.correoEstudiante)
 INNER JOIN Curso on (Curso_Estudiante.idCurso = Curso.idCurso)
 where  Curso.correoProfesor NOT REGEXP '.*@usm.cl';
+
+select DISTINCT Curso.titulo, Profesor.nombre, Profesor.apellido ,COUNT(Video.idCurso)
+from Video
+INNER JOIN Curso on Curso.idCurso = Video.idCurso
+INNER JOIN Profesor on Curso.correoProfesor = Profesor.correoProfesor
+GROUP BY Video.idCurso;
+
